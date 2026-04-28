@@ -17,6 +17,10 @@ def main():
     if not api_key:
         raise RuntimeError("GEMINI_API_KEY evniornment variable not set")
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument("user_prompt", type=str, help="User prompt")
+    args = parser.parse_args()
+
     client = genai.Client(api_key=api_key)
     messages = [types.Content(role="user", parts=[types.Part(text=args.user_prompt)])]
     if args.verbose:
