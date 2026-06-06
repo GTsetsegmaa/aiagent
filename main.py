@@ -4,10 +4,11 @@ import argparse
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from prompts import system_prompt
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Chatbot")
+    parser = argparse.ArgumentParser(description="AI Code Assistant")
     parser.add_argument("user_prompt", type=str, help="User prompt")
     parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
     args = parser.parse_args()
@@ -17,10 +18,6 @@ def main() -> None:
     if not api_key:
         raise RuntimeError("GEMINI_API_KEY evniornment variable not set")
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("user_prompt", type=str, help="User prompt")
-    args = parser.parse_args()
-
     client = genai.Client(api_key=api_key)
     messages = [types.Content(role="user", parts=[types.Part(text=args.user_prompt)])]
     if args.verbose:
@@ -29,10 +26,11 @@ def main() -> None:
     generate_content(client, messages, args.verbose)
 
 
-def generate_content(client: genai.Client, messages: list[types.Content], verbose: bool):
+def generate_content(client: genai.Client, messages: list[types.Content], verbose: bool) -> None:
     response = client.models.generate_content(
         model="gemini-2.5-flash",
         contents=messages,
+        config=types.GenerateContentConfig(system_instruction=system_prompt)
     )
     if not response.usage_metadata:
         raise RuntimeError("Gemini API response appears to be malformed")
