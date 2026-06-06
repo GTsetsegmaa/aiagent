@@ -6,7 +6,7 @@ from google import genai
 from google.genai import types
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="Chatbot")
     parser.add_argument("user_prompt", type=str, help="User prompt")
     parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
@@ -29,7 +29,7 @@ def main():
     generate_content(client, messages, args.verbose)
 
 
-def generate_content(client, messages, verbose):
+def generate_content(client: genai.Client, messages: list[types.Content], verbose: bool):
     response = client.models.generate_content(
         model="gemini-2.5-flash",
         contents=messages,
