@@ -22,7 +22,7 @@ def get_file_content(working_directory: str, file_path: str) -> str:
         return f'Error: getting file content: {e}'
     
 
-schema_get_files_content = types.FunctionDeclaration(
+schema_get_file_content = types.FunctionDeclaration(
     name="get_file_content",
     description="Retrieves the content (at most {MAX_CHARS} characters) of a specifes file within the working directory",
     parameters=types.Schema(
