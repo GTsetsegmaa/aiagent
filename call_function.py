@@ -43,7 +43,7 @@ def call_function(function_call : types.FunctionCall, verbose: bool = False) -> 
         )
 
     args = dict(function_call.args) if function_call.args else {}
-    args["working_directory"] = WORKIN_DIR
+    args["working_directory"] = WORKING_DIR
     result = function_map[function_name](**args)
 
     return types.Content(
