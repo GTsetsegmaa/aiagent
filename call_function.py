@@ -24,9 +24,9 @@ function_map: dict[str, Callable[..., str]] = {
         "write_file": write_file
     }
 
-def call_function(function_call : types.FunctionCall, verbose: bool = False) -> types.Content:
+def call_function(function_call: types.FunctionCall, verbose: bool = False) -> types.Content:
     if verbose:
-        print(f"Calling function: {function_call.name}(function_call.args)")
+        print(f"Calling function: {function_call.name}({function_call.args}")
     else:
         print(f" - Calling functions: {function_call.name}")
     
